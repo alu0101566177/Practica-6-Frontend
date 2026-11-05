@@ -1,0 +1,39 @@
+<style>
+  .card {
+    background: white;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition:
+      transform 0.18s,
+      box-shadow 0.18s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  }
+  .card-icon {
+    font-size: 3rem;
+    text-align: center;
+    padding: 1.2rem 0 0.6rem;
+    background: linear-gradient(135deg, #d4f4dd, #a8d8b8);
+  }
+  .card-body {
+    padding: 0.8rem 1rem 1rem;
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+</style>
+
+<div class='card'>
+  <div class='card-icon'>
+    <slot name='icon'>🌱</slot>
+  </div>
+  <div class='card-body'>
+    <div class='card-title'><slot name='title'>Untitled Card</slot></div>
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  level: 'threated' | 'vulnerable' | 'safe';
+  label?: string;
+}
+
+const { level, label } = Astro.props;
+const defaultLabel = {
+  threated: 'En peligro',
+  vulnerable: 'Vulnerable',
+  safe: 'Segura',
+}[level];
+---
+
+<style>
+  span {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .threated {
+    background: #fce4ec;
+    color: #b71c1c;
+  }
+
+  .vulnerable {
+    background: #fff3e0;
+    color: #e65100;
+  }
+
+  .safe {
+    background: #e8f5e9;
+    color: #1b5e20;
+  }
+</style>
+
+<span class={level}>{label ?? defaultLabel}</span>

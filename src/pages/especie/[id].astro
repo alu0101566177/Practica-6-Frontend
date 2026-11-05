@@ -1,0 +1,92 @@
+---
+import { specieAdapter } from '@/data/specie-adapter';
+import species from '@/data/species.json';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Chip from '@/components/Chip.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  return species.map(({ id }) => ({
+    params: {
+      id,
+    },
+  }));
+}
+
+const { id } = Astro.params;
+const {
+  icon,
+  name,
+  scientificName,
+  description,
+  location,
+  threatLabel,
+  height,
+} = specieAdapter(species.find(specie => specie.id === id)!);
+---
+
+<style>
+  .container {
+    background: white;
+    border-left: 4px solid #2d6a4f;
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .icon {
+    font-size: 2.4rem;
+  }
+
+  .name {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .scientific {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .meta {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+</style>
+
+<BaseLayout>
+  <Breadcrumb items={[{ label: 'Catálogo', href: '/' }, { label: id }]} />
+  <div class='container'>
+    <div class='head'>
+      <span class='icon'>{icon}</span>
+      <div>
+        <div class='name'>{name}</div>
+        <div class='scientific'>{scientificName}</div>
+      </div>
+    </div>
+    <p class='description'>
+      {description}
+    </p>
+    <div class='meta'>
+      <Chip>🏝 {location}</Chip>
+      {threatLabel && <Chip>🌡 {threatLabel}</Chip>}
+      <Chip>🌲 {height}</Chip>
+    </div>
+  </div>
+</BaseLayout>

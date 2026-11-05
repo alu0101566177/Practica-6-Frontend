@@ -1,0 +1,16 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import species from '@/data/species.json';
+import SpecieCard from '@/components/SpecieCard.astro';
+import { specieAdapter } from '@/data/specie-adapter';
+---
+
+<BaseLayout>
+  <h1>🌿 Catálogo de Especies Endémicas de Canarias</h1>
+  <p class='subtitle'>
+    Ejercicio de Web Components — haz clic en una especie para ver el detalle
+  </p>
+  <div class='catalog'>
+    {species.map(specie => <SpecieCard specie={specieAdapter(specie)} />)}
+  </div>
+</BaseLayout>
